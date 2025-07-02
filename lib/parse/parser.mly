@@ -29,54 +29,58 @@
 %left ADD SUB
 %left MUL DIV
 
-%start <unit> program
+%{
+  open Ast
+%}
+
+%start <BaseAst.stmt> program
 
 %%
 
 program:
-| stmt EOF
-  { }
+| s = stmt EOF
+  { s }
 
 stmt:
-| ID ASSIGN expr
-  { }
-| PRINT expr
-  { }
-| IF cond THEN stmt END
-  { }
-| IF cond THEN stmt ELSE stmt END
-  { }
-| LBRACE separated_list(COMMA, stmt) RBRACE
-  { }
+| id = ID ASSIGN e = expr
+  { BaseAst.AssignStmt(id, e) }
+| PRINT e = expr
+  { BaseAst.PrintStmt e }
+| IF c = cond THEN s = stmt END
+  { BaseAst.IfStmt (c, s, (BlockStmt [])) }
+| IF c = cond THEN s1 = stmt ELSE s2 = stmt END
+  { BaseAst.IfStmt (c, s1, s2) }
+| LBRACE ss = separated_list(COMMA, stmt) RBRACE
+  { BaseAst.BlockStmt ss }
 
 cond:
-| expr EQ expr
-  { }
-| expr NE expr
-  { }
-| expr LT expr
-  { }
-| expr LE expr
-  { }
-| expr GT expr
-  { }
-| expr GE expr
-  { }
+| e1 = expr EQ e2 = expr
+  { (e1, BaseAst.EQ, e2) }
+| e1 = expr NE e2 = expr
+  { (e1, BaseAst.NE, e2) }
+| e1 = expr LT e2 = expr
+  { (e1, BaseAst.LT, e2) }
+| e1 = expr LE e2 = expr
+  { (e1, BaseAst.LE, e2) }
+| e1 = expr GT e2 = expr
+  { (e1, BaseAst.GT, e2) }
+| e1 = expr GE e2 = expr
+  { (e1, BaseAst.GE, e2) }
 
 expr:
-| ID
-  { }
-| INT
-  { }
-| expr ADD expr
-  { }
-| expr SUB expr
-  { }
-| expr MUL expr
-  { }
-| expr DIV expr
-  { }
-| LPAR expr RPAR
-  { }
+| id = ID
+  { BaseAst.IdExpr id }
+| n = INT
+  { BaseAst.IntExpr n }
+| e1 = expr ADD e2 = expr
+  { BaseAst.OperationExpr (e1, BaseAst.ADD, e2) }
+| e1 = expr SUB e2 = expr
+  { BaseAst.OperationExpr (e1, BaseAst.SUB, e2) }
+| e1 = expr MUL e2 = expr
+  { BaseAst.OperationExpr (e1, BaseAst.MUL, e2) }
+| e1 = expr DIV e2 = expr
+  { BaseAst.OperationExpr (e1, BaseAst.DIV, e2) }
+| LPAR e = expr RPAR
+  { e }
 
 %%

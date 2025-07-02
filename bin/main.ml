@@ -1,4 +1,4 @@
 open Parse
 
 let lexbuf = Lexing.from_channel stdin
-let () = Parser.program Lexer.lex lexbuf
+let _ = Parser.program Lexer.lex lexbuf

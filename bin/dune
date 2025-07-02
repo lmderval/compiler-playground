@@ -1,4 +1,4 @@
 (executable
  (public_name playground)
  (name main)
- (libraries parse))
+ (libraries parse visitor))

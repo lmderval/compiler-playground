@@ -60,12 +60,12 @@ and visit_cond cond lvl =
   | e1, op, e2 ->
       visit_expr e1 lvl;
       (match op with
-      | BaseAst.EQ -> Printf.printf " == "
-      | BaseAst.NE -> Printf.printf " != "
-      | BaseAst.LT -> Printf.printf " < "
-      | BaseAst.LE -> Printf.printf " <= "
-      | BaseAst.GT -> Printf.printf " > "
-      | BaseAst.GE -> Printf.printf " >= ");
+      | Operators.EQ -> Printf.printf " == "
+      | Operators.NE -> Printf.printf " != "
+      | Operators.LT -> Printf.printf " < "
+      | Operators.LE -> Printf.printf " <= "
+      | Operators.GT -> Printf.printf " > "
+      | Operators.GE -> Printf.printf " >= ");
       visit_expr e2 lvl
 
 and visit_expr expr lvl =
@@ -76,10 +76,10 @@ and visit_expr expr lvl =
       Printf.printf "(";
       visit_expr e1 lvl;
       (match op with
-      | BaseAst.ADD -> Printf.printf " + "
-      | BaseAst.SUB -> Printf.printf " - "
-      | BaseAst.MUL -> Printf.printf " * "
-      | BaseAst.DIV -> Printf.printf " / ");
+      | Operators.ADD -> Printf.printf " + "
+      | Operators.SUB -> Printf.printf " - "
+      | Operators.MUL -> Printf.printf " * "
+      | Operators.DIV -> Printf.printf " / ");
       visit_expr e2 lvl;
       Printf.printf ")"
 

@@ -55,17 +55,17 @@ stmt:
 
 cond:
 | e1 = expr EQ e2 = expr
-  { (e1, BaseAst.EQ, e2) }
+  { (e1, Operators.EQ, e2) }
 | e1 = expr NE e2 = expr
-  { (e1, BaseAst.NE, e2) }
+  { (e1, Operators.NE, e2) }
 | e1 = expr LT e2 = expr
-  { (e1, BaseAst.LT, e2) }
+  { (e1, Operators.LT, e2) }
 | e1 = expr LE e2 = expr
-  { (e1, BaseAst.LE, e2) }
+  { (e1, Operators.LE, e2) }
 | e1 = expr GT e2 = expr
-  { (e1, BaseAst.GT, e2) }
+  { (e1, Operators.GT, e2) }
 | e1 = expr GE e2 = expr
-  { (e1, BaseAst.GE, e2) }
+  { (e1, Operators.GE, e2) }
 
 expr:
 | id = ID
@@ -73,13 +73,13 @@ expr:
 | n = INT
   { BaseAst.IntExpr n }
 | e1 = expr ADD e2 = expr
-  { BaseAst.OperationExpr (e1, BaseAst.ADD, e2) }
+  { BaseAst.OperationExpr (e1, Operators.ADD, e2) }
 | e1 = expr SUB e2 = expr
-  { BaseAst.OperationExpr (e1, BaseAst.SUB, e2) }
+  { BaseAst.OperationExpr (e1, Operators.SUB, e2) }
 | e1 = expr MUL e2 = expr
-  { BaseAst.OperationExpr (e1, BaseAst.MUL, e2) }
+  { BaseAst.OperationExpr (e1, Operators.MUL, e2) }
 | e1 = expr DIV e2 = expr
-  { BaseAst.OperationExpr (e1, BaseAst.DIV, e2) }
+  { BaseAst.OperationExpr (e1, Operators.DIV, e2) }
 | LPAR e = expr RPAR
   { e }
 

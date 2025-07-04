@@ -5,10 +5,10 @@ let enter env = VarSet.empty :: env
 
 let leave env =
   match env with
-  | _ :: t -> t
-  | _ ->
+  | [] ->
       Printf.eprintf "No scope to leave\n";
       exit 1
+  | _ :: t -> t
 
 let rec lookup env id =
   match env with

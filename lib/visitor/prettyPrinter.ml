@@ -2,7 +2,7 @@ open Ast
 
 let rec visit_stmt stmt lvl =
   match stmt with
-  | BaseAst.VarDecStmt id -> Printf.printf "declare %s" id
+  | BaseAst.DeclareStmt id -> Printf.printf "declare %s" id
   | BaseAst.AssignStmt (id, e) ->
       Printf.printf "%s <- " id;
       visit_expr e lvl

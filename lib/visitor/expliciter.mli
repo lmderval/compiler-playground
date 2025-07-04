@@ -1,1 +1,1 @@
-val explicit : Ast.BaseAst.stmt -> Ast.BaseAst.stmt
+val explicit_declaration : Ast.BaseAst.stmt -> Ast.BaseAst.stmt

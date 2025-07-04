@@ -14,7 +14,19 @@ let _ = TypeChecker.type_check linearized_ast
 let () =
   Printf.printf "# Base AST\n";
   PrettyPrinter.pretty_print base_ast;
+  Printf.printf "\n";
+  Printf.printf "# Scoped AST\n";
+  PrettyPrinter.pretty_print scoped_ast;
+  Printf.printf "\n";
   Printf.printf "# Simplified AST\n";
   PrettyPrinter.pretty_print simplified_ast;
+  Printf.printf "\n";
+  Printf.printf "# Explicit AST\n";
+  PrettyPrinter.pretty_print explicit_ast;
+  Printf.printf "\n";
+  Printf.printf "# Renamed AST\n";
+  PrettyPrinter.pretty_print renamed_ast;
+  Printf.printf "\n";
   Printf.printf "# Linearized AST\n";
-  PrettyPrinter.pretty_print linearized_ast
+  PrettyPrinter.pretty_print linearized_ast;
+  Printf.printf "\n"

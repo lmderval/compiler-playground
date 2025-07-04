@@ -1,1 +1,1 @@
-val explicit : Ast.BaseAst.stmt -> Ast.ExplicitAst.stmt
+val explicit : Ast.BaseAst.stmt -> Ast.BaseAst.stmt

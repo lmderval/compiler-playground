@@ -1,4 +1,5 @@
 type stmt =
+  | VarDecStmt of string
   | AssignStmt of string * expr
   | PrintStmt of expr
   | IfStmt of cond * stmt * stmt

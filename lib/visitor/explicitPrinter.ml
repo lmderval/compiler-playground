@@ -23,21 +23,18 @@ let rec visit_stmt stmt lvl =
       Printf.printf "\n";
       if lvl > 0 then Printf.printf "%*s" lvl " ";
       Printf.printf "end"
-  | ExplicitAst.BlockStmt [] -> Printf.printf "{ }"
   | ExplicitAst.BlockStmt ss -> (
       match ss with
-      | [ ss1 ] -> (
-          match ss1 with
-          | ExplicitAst.BlockStmt _ -> visit_stmt ss1 lvl
-          | ExplicitAst.IfStmt _ ->
-              Printf.printf "{\n";
-              visit_block ss (lvl + 1);
-              if lvl > 0 then Printf.printf "%*s" lvl " ";
-              Printf.printf "}"
-          | _ ->
-              Printf.printf "{ ";
-              visit_stmt ss1 lvl;
-              Printf.printf " }")
+      | [] -> Printf.printf "{ }"
+      | [ ExplicitAst.IfStmt _ ] ->
+          Printf.printf "{\n";
+          visit_block ss (lvl + 1);
+          if lvl > 0 then Printf.printf "%*s" lvl " ";
+          Printf.printf "}"
+      | [ ss1 ] ->
+          Printf.printf "{ ";
+          visit_stmt ss1 lvl;
+          Printf.printf " }"
       | _ ->
           Printf.printf "{\n";
           visit_block ss (lvl + 1);

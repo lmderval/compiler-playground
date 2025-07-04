@@ -9,6 +9,7 @@ let nl = "\n" | "\r" | "\n\r" | "\r\n"
 
 rule lex = parse
 (* Keywords *)
+| "declare" { DECLARE }
 | "print" { PRINT }
 | "if" { IF }
 | "then" { THEN }

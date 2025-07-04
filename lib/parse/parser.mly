@@ -1,6 +1,7 @@
 %token <string> ID
 %token <int> INT
 
+%token DECLARE "declare"
 %token PRINT "print"
 %token IF "if"
 %token THEN "then"
@@ -42,8 +43,10 @@ program:
   { s }
 
 stmt:
+| DECLARE id = ID
+  { BaseAst.DeclareStmt id }
 | id = ID ASSIGN e = expr
-  { BaseAst.AssignStmt(id, e) }
+  { BaseAst.AssignStmt (id, e) }
 | PRINT e = expr
   { BaseAst.PrintStmt e }
 | IF c = cond THEN s = stmt END

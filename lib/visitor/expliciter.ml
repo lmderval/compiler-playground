@@ -25,6 +25,9 @@ let push env id =
 
 let rec explicit_stmt stmt env =
   match stmt with
+  | BaseAst.DeclareStmt id ->
+      let env = push env id in
+      (BaseAst.DeclareStmt id, env)
   | BaseAst.AssignStmt (id, e) ->
       if lookup env id then (BaseAst.AssignStmt (id, e), env)
       else

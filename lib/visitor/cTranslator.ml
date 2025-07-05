@@ -24,6 +24,9 @@ and make_compound stmt =
       let s1 = make_compound_stmt s1 in
       let s2 = make_compound_stmt s2 in
       CAst.Stmt (CAst.If (c, CAst.Compound s1, CAst.Compound s2))
+  | TypedAst.WhileStmt _ ->
+      Printf.eprintf "Not implemented yet!\n";
+      exit 1
   | TypedAst.BlockStmt ss ->
       let ss = make_compounds ss in
       CAst.Stmt (CAst.Compound ss)

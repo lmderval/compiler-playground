@@ -46,9 +46,10 @@ let rec type_stmt stmt env =
       let s1, env = type_stmt s1 env in
       let s2, env = type_stmt s2 env in
       (TypedAst.IfStmt (c, s1, s2), env)
-  | BaseAst.WhileStmt _ ->
-      Printf.eprintf "Not implemented yet!\n";
-      exit 1
+  | BaseAst.WhileStmt (c, s) ->
+      let c, env = type_cond c env in
+      let s, env = type_stmt s env in
+      (TypedAst.WhileStmt (c, s), env)
   | BaseAst.BlockStmt ss ->
       let env = enter env in
       let ss, env = type_block ss env in

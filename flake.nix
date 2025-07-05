@@ -18,7 +18,7 @@
         packages = {
           playground = pkgs.stdenv.mkDerivation {
             pname = "playground";
-            version = "0.0.0";
+            version = "0.1.0";
             src = self;
             nativeBuildInputs = (
               with pkgs;
@@ -43,7 +43,7 @@
           };
           runtime = pkgs.stdenv.mkDerivation {
             pname = "runtime";
-            version = "0.0.0";
+            version = "0.1.0";
             src = self;
             nativeBuildInputs = with pkgs; [ gcc gnumake ];
             buildPhase = ''
@@ -57,7 +57,7 @@
           };
           all = pkgs.symlinkJoin {
             pname = "all";
-            version = "0.0.0";
+            version = "0.1.0";
             paths = [
               self.packages.${system}.playground
               self.packages.${system}.runtime

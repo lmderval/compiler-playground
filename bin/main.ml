@@ -10,6 +10,7 @@ let explicit_ast = Expliciter.explicit_declaration simplified_ast
 let renamed_ast = Renamer.rename_var explicit_ast
 let linearized_ast = BlockLinearizer.linearize_blocks renamed_ast
 let typed_ast = TypeChecker.type_check linearized_ast
+let _ = CTranslator.translate_to_c typed_ast
 
 let () =
   Printf.printf "# Base AST\n";

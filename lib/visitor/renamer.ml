@@ -44,6 +44,9 @@ let rec rename_stmt stmt env fresh =
       let s1, env, fresh = rename_stmt s1 env fresh in
       let s2, env, fresh = rename_stmt s2 env fresh in
       (BaseAst.IfStmt (c, s1, s2), env, fresh)
+  | BaseAst.WhileStmt _ ->
+      Printf.eprintf "Not implemented yet!\n";
+      exit 1
   | BaseAst.BlockStmt ss ->
       let env = enter env in
       let ss, env, fresh = rename_block ss env fresh in

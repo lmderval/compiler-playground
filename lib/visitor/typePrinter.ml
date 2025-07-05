@@ -24,6 +24,16 @@ let rec visit_stmt stmt lvl =
       Printf.printf "\n";
       if lvl > 0 then Printf.printf "%*s" lvl " ";
       Printf.printf "end"
+  | TypedAst.WhileStmt (c, s) ->
+      Printf.printf "while ";
+      visit_cond c lvl;
+      Printf.printf "\n";
+      Printf.printf "%*s" (lvl + 1) " ";
+      Printf.printf "do ";
+      visit_stmt s (lvl + 1);
+      Printf.printf "\n";
+      if lvl > 0 then Printf.printf "%*s" lvl " ";
+      Printf.printf "end"
   | TypedAst.BlockStmt ss -> (
       match ss with
       | [] -> Printf.printf "{ }"

@@ -12,6 +12,7 @@ and stmt =
   | Expr of expr
   | Compound of compound_stmt
   | If of expr * stmt * stmt
+  | While of expr * stmt
   | Return of expr
 
 and expr =

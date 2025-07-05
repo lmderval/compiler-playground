@@ -4,6 +4,7 @@ let rec simplify_stmt stmt =
   match stmt with
   | BaseAst.IfStmt (c, s1, s2) ->
       BaseAst.IfStmt (c, simplify_stmt s1, simplify_stmt s2)
+  | BaseAst.WhileStmt (c, s) -> BaseAst.WhileStmt (c, simplify_stmt s)
   | BaseAst.BlockStmt ss -> (
       match ss with
       | [ ss1 ] -> (

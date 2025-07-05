@@ -8,6 +8,9 @@ let rec linearize_stmt stmt =
       let s1 = linearize_stmt s1 in
       let s2 = linearize_stmt s2 in
       BaseAst.IfStmt (c, s1, s2)
+  | BaseAst.WhileStmt (c, s) ->
+      let s = linearize_stmt s in
+      BaseAst.WhileStmt (c, s)
   | BaseAst.BlockStmt ss ->
       let ss = linearize_block ss in
       BaseAst.BlockStmt ss

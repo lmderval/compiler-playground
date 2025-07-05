@@ -75,6 +75,11 @@ and visit_stmt stmt lvl =
       indent lvl;
       Printf.printf "else\n";
       visit_stmt s2 lvl
+  | CAst.While (c, s) ->
+      Printf.printf "while (";
+      visit_expr c;
+      Printf.printf ")\n";
+      visit_stmt s lvl
   | CAst.Return e ->
       Printf.printf "return ";
       visit_expr e;

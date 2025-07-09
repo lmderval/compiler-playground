@@ -60,7 +60,7 @@ and visit_compound compound lvl =
   | CAst.Stmt s -> visit_stmt s lvl
 
 and visit_stmt stmt lvl =
-  indent lvl;
+  (match stmt with CAst.Label _ -> () | _ -> indent lvl);
   match stmt with
   | CAst.Expr e ->
       visit_expr e;
@@ -84,6 +84,8 @@ and visit_stmt stmt lvl =
       Printf.printf "return ";
       visit_expr e;
       Printf.printf ";"
+  | CAst.Label l -> Printf.printf "%s:;" l
+  | CAst.Goto l -> Printf.printf "goto %s;" l
 
 and visit_expr expr =
   match expr with

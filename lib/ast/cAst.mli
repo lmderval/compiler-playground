@@ -14,6 +14,8 @@ and stmt =
   | If of expr * stmt * stmt
   | While of expr * stmt
   | Return of expr
+  | Label of string
+  | Goto of string
 
 and expr =
   | Assign of string * expr

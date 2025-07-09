@@ -4,13 +4,14 @@ open Parse
 let lexbuf = Lexing.from_channel stdin
 let base_ast = Parser.program Lexer.lex lexbuf
 let globally_scoped_ast = GlobalScoper.create_global_scope base_ast
-let scoped_ast = IfScoper.create_if_scopes globally_scoped_ast
+let scoped_ast = InnerScoper.create_inner_scopes globally_scoped_ast
 let simplified_ast = BlockSimplifier.simplify_blocks scoped_ast
 let explicit_ast = Expliciter.explicit_declaration simplified_ast
 let renamed_ast = Renamer.rename_var explicit_ast
 let linearized_ast = BlockLinearizer.linearize_blocks renamed_ast
 let typed_ast = TypeChecker.type_check linearized_ast
 let c_program = CTranslator.translate_to_c typed_ast
+let c_no_while = CDesugarWhile.desugar_while c_program
 
 (* let _ = *)
 (* Printf.printf "# Base AST\n"; *)
@@ -36,6 +37,9 @@ let c_program = CTranslator.translate_to_c typed_ast
 (* Printf.printf "\n"; *)
 (* Printf.printf "# C Program\n"; *)
 (* CPrinter.print_program c_program; *)
+(* Printf.printf "\n"; *)
+(* Printf.printf "# C While Desugar\n"; *)
+(* CPrinter.print_program c_no_while; *)
 (* Printf.printf "\n" *)
 
-let () = CPrinter.print_program c_program
+let () = CPrinter.print_program c_no_while

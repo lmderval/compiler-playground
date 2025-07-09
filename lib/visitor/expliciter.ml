@@ -38,6 +38,9 @@ let rec explicit_stmt stmt env =
       let s1, env = explicit_stmt s1 env in
       let s2, env = explicit_stmt s2 env in
       (BaseAst.IfStmt (c, s1, s2), env)
+  | BaseAst.WhileStmt (c, s) ->
+      let s, env = explicit_stmt s env in
+      (BaseAst.WhileStmt (c, s), env)
   | BaseAst.BlockStmt ss ->
       let env = enter env in
       let ss, env = explicit_block ss env in

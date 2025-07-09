@@ -24,6 +24,10 @@ and make_compound stmt =
       let s1 = make_compound_stmt s1 in
       let s2 = make_compound_stmt s2 in
       CAst.Stmt (CAst.If (c, CAst.Compound s1, CAst.Compound s2))
+  | TypedAst.WhileStmt (c, s) ->
+      let c = translate_cond c in
+      let s = make_compound_stmt s in
+      CAst.Stmt (CAst.While (c, CAst.Compound s))
   | TypedAst.BlockStmt ss ->
       let ss = make_compounds ss in
       CAst.Stmt (CAst.Compound ss)

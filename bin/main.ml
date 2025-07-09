@@ -11,6 +11,7 @@ let renamed_ast = Renamer.rename_var explicit_ast
 let linearized_ast = BlockLinearizer.linearize_blocks renamed_ast
 let typed_ast = TypeChecker.type_check linearized_ast
 let c_program = CTranslator.translate_to_c typed_ast
+let c_no_while = CDesugarWhile.desugar_while c_program
 
 (* let _ = *)
 (* Printf.printf "# Base AST\n"; *)
@@ -36,6 +37,9 @@ let c_program = CTranslator.translate_to_c typed_ast
 (* Printf.printf "\n"; *)
 (* Printf.printf "# C Program\n"; *)
 (* CPrinter.print_program c_program; *)
+(* Printf.printf "\n"; *)
+(* Printf.printf "# C While Desugar\n"; *)
+(* CPrinter.print_program c_no_while; *)
 (* Printf.printf "\n" *)
 
-let () = CPrinter.print_program c_program
+let () = CPrinter.print_program c_no_while

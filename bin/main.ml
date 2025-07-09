@@ -12,7 +12,8 @@ let main () =
   let linearized_ast = BlockLinearizer.linearize_blocks renamed_ast in
   let typed_ast = TypeChecker.type_check linearized_ast in
   let c_program = CTranslator.translate_to_c typed_ast in
-  CPrinter.print_program c_program
+  let c_no_while = CDesugarWhile.desugar_while c_program in
+  CPrinter.print_program c_no_while
 
 let () =
   try main () with

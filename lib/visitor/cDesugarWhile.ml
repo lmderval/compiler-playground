@@ -2,6 +2,13 @@ open Ast
 
 let rec merge l1 l2 = match l1 with [] -> l2 | h :: t -> h :: merge t l2
 
+let unwrap list =
+  match list with
+  | [ e ] -> e
+  | _ ->
+      Printf.eprintf "List is not made of a single element\n";
+      exit 1
+
 let invert_condition cond =
   match cond with
   | CAst.Operator (e1, CAst.Comparison op, e2) ->
@@ -45,13 +52,22 @@ and desugar_compound compound fresh =
 
 and desugar_stmt stmt fresh =
   match stmt with
+  | CAst.Compound s ->
+      let s, fresh = desugar_compound_stmt s fresh in
+      ([ CAst.Compound s ], fresh)
+  | CAst.If (c, s1, s2) ->
+      let s1, fresh = desugar_stmt s1 fresh in
+      let s2, fresh = desugar_stmt s2 fresh in
+      ([ CAst.If (c, unwrap s1, unwrap s2) ], fresh)
   | CAst.While (c, s) ->
       let c = invert_condition c in
+      let s, fresh = desugar_stmt s fresh in
       let loop_label = Printf.sprintf "loop%d" fresh in
       let end_label = Printf.sprintf "end%d" fresh in
       ( [
           CAst.Label loop_label;
-          CAst.If (c, CAst.Compound [ CAst.Stmt (CAst.Goto end_label) ], s);
+          CAst.If
+            (c, CAst.Compound [ CAst.Stmt (CAst.Goto end_label) ], unwrap s);
           CAst.Goto loop_label;
           CAst.Label end_label;
         ],

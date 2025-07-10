@@ -1,5 +1,3 @@
-import pytest
-
 from pathlib import Path
 from subprocess import Popen, PIPE
 
@@ -40,3 +38,7 @@ def test_explicit(binaries_directory: str, testcase: Dict[str, str]):
 
 def test_renamed(binaries_directory: str, testcase: Dict[str, str]):
     basic_test("renamed", binaries_directory, testcase)
+
+
+def test_linearized(binaries_directory: str, testcase: Dict[str, str]):
+    basic_test("linearized", binaries_directory, testcase)

@@ -27,8 +27,8 @@ def pytest_generate_tests(metafunc):
 def pytest_itemcollected(item):
     item._nodeid = ""
 
-    name = item.originalname.removeprefix("test_")
+    category = item.callspec.params.get("category") or item.originalname.removeprefix("test_")
     testcase = item.callspec.params.get("testcase")
 
     if testcase:
-        item._nodeid = f"{name}::{testcase['name']}"
+        item._nodeid = f"{category}::{testcase['name']}"

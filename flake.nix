@@ -12,6 +12,7 @@
       let
         pkgs = import nixpkgs { inherit system; };
         ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_14;
+        pythonPackages = pkgs.python313Packages;
       in
       {
         formatter = pkgs.nixpkgs-fmt;
@@ -21,9 +22,6 @@
             version = "0.1.0";
             src = self;
             nativeBuildInputs = (
-              with pkgs;
-              [ ]
-            ) ++ (
               with ocamlPackages;
               [
                 ocaml
@@ -31,6 +29,11 @@
                 ocaml-lsp
                 ocamlformat
                 menhir
+              ]
+            ) ++ (with pythonPackages;
+              [
+                python
+                pytest
               ]
             );
             buildPhase = ''

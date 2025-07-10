@@ -3,9 +3,10 @@ import pytest
 from pathlib import Path
 from subprocess import Popen, PIPE
 
+from typing import Dict
 
-@pytest.mark.parametrize("category", ["base", "explicit", "renamed"])
-def test_output_only(category: str, binaries_directory: str, testcase: str):
+
+def basic_test(category: str, binaries_directory: str, testcase: Dict[str, str]):
     binary_path = Path(binaries_directory) / f"test_{category}.exe"
     input_path = Path(f"{testcase['path']}.plgr")
     output_path = Path(f"{testcase['path']}-{category}.out")
@@ -27,3 +28,15 @@ def test_output_only(category: str, binaries_directory: str, testcase: str):
     assert proc.returncode == 0
     assert stdout == output
     assert stderr == b""
+
+
+def test_base(binaries_directory: str, testcase: Dict[str, str]):
+    basic_test("base", binaries_directory, testcase)
+
+
+def test_explicit(binaries_directory: str, testcase: Dict[str, str]):
+    basic_test("explicit", binaries_directory, testcase)
+
+
+def test_renamed(binaries_directory: str, testcase: Dict[str, str]):
+    basic_test("renamed", binaries_directory, testcase)

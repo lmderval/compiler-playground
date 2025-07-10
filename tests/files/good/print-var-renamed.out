@@ -1,0 +1,5 @@
+{
+ declare a0,
+ a0 <- 42,
+ print a0
+}

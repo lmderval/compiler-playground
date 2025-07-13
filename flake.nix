@@ -21,7 +21,7 @@
             pname = "playground";
             version = "0.1.0";
             src = self;
-            nativeBuildInputs = (
+            nativeBuildInputs =
               with ocamlPackages;
               [
                 ocaml
@@ -29,13 +29,7 @@
                 ocaml-lsp
                 ocamlformat
                 menhir
-              ]
-            ) ++ (with pythonPackages;
-              [
-                python
-                pytest
-              ]
-            );
+              ];
             buildPhase = ''
               dune build
             '';
@@ -56,6 +50,52 @@
               mkdir -p $out/runtime/include
               cp runtime/c/libruntime.a $out/runtime/libruntime.a
               cp runtime/c/runtime.h $out/runtime/include/runtime.h
+            '';
+          };
+          check-playground = pkgs.stdenv.mkDerivation {
+            pname = "check-playground";
+            version = "0.1.0";
+            src = self;
+            nativeBuildInputs = (
+              with ocamlPackages;
+              [
+                ocaml
+                dune_3
+                ocaml-lsp
+                ocamlformat
+                menhir
+              ]
+            ) ++ (
+              with pythonPackages;
+              [
+                python
+                pytest
+              ]
+            ) ++ (
+              with pkgs;
+              [
+                gcc
+                gnumake
+              ]
+            );
+            buildPhase = ''
+              dune build
+              make -C runtime/c/
+            '';
+            installPhase = ''
+              mkdir -p $out/runtime/include
+              mkdir -p $out/tests
+              cp -r _build/default/tests $out/bin
+              cp runtime/c/libruntime.a $out/runtime/libruntime.a
+              cp runtime/c/runtime.h $out/runtime/include/runtime.h
+              cp -r tests/files $out/tests/files
+              cp tests/conftest.py $out/tests/conftest.py
+              cp tests/test_playground.py $out/tests/test_playground.py
+              cat <<EOF >$out/bin/$pname
+              #!/bin/sh
+              ${pythonPackages.pytest}/bin/pytest -p no:cacheprovider -v $out/tests/ --binaries-directory $out/bin --runtime-directory $out/runtime/
+              EOF
+              chmod +x $out/bin/$pname
             '';
           };
           all = pkgs.symlinkJoin {

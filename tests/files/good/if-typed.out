@@ -1,0 +1,6 @@
+{
+ if 1#int == 1#int
+  then { print 1#int }
+  else { print 0#int }
+ end
+}

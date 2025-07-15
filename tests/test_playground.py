@@ -44,6 +44,10 @@ def test_linearized(binaries_directory: str, testcase: Dict[str, str]):
     basic_test("linearized", binaries_directory, testcase)
 
 
+def test_typed(binaries_directory: str, testcase: Dict[str, str]):
+    basic_test("typed", binaries_directory, testcase)
+
+
 def test_c_program(
     binaries_directory: str, testcase: Dict[str, str], runtime_directory: str
 ):

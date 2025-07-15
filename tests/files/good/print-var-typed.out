@@ -1,0 +1,5 @@
+{
+ declare a0#int,
+ a0 <- 42#int,
+ print a0#int
+}

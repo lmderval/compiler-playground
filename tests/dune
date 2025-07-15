@@ -1,3 +1,9 @@
 (executables
- (names test_base test_explicit test_renamed test_linearized test_c_program)
+ (names
+  test_base
+  test_explicit
+  test_renamed
+  test_linearized
+  test_typed
+  test_c_program)
  (libraries parse visitor))

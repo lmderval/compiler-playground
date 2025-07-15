@@ -1,0 +1,7 @@
+{
+ declare a0#int,
+ a0 <- (3#int * 5#int)#int,
+ declare b1#int,
+ b1 <- ((a0#int + 4#int)#int * 3#int)#int,
+ print (((a0#int / 3#int)#int - (2#int * b1#int)#int)#int + 7#int)#int
+}

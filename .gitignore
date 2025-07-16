@@ -1,3 +1,6 @@
 # Build directories
 /_build
 /result
+
+# Python
+__pycache__

@@ -1,5 +1,7 @@
 {
   open Parser
+
+  exception Error
 }
 
 let id = ['a'-'z' 'A'-'Z']['a'-'z' 'A'-'Z' '0'-'9' '_']*
@@ -44,5 +46,5 @@ rule lex = parse
        lex lexbuf }
 (* End of file *)
 | eof { EOF }
-| _ { raise (Failure "lexical error") }
+| _ { raise Error }
 { }

@@ -5,22 +5,22 @@ let enter env = Hashtbl.create 16 :: env
 let leave env =
   match env with
   | [] ->
-      Printf.eprintf "No scope to leave\n";
+      Printf.eprintf "failure: no scope to leave\n";
       exit 1
   | _ :: t -> t
 
 let rec lookup env id =
   match env with
   | [] ->
-      Printf.eprintf "No variable matching '%s'\n" id;
-      exit 1
+      Printf.eprintf "binding error: no variable matching '%s'\n" id;
+      exit 4
   | h :: t -> (
       match Hashtbl.find_opt h id with None -> lookup t id | Some ty -> ty)
 
 let typevar env id ty =
   match env with
   | [] ->
-      Printf.eprintf "No scope to push variable\n";
+      Printf.eprintf "failure: no scope to push variable\n";
       exit 1
   | h :: t ->
       Hashtbl.replace h id ty;
@@ -36,7 +36,7 @@ let rec type_stmt stmt env =
       let e, env = type_expr e env in
       if id_ty = TypedAst.typeof e then (TypedAst.AssignStmt (id, e), env)
       else (
-        Printf.eprintf "Types mismatch\n";
+        Printf.eprintf "typing error: types mismatch\n";
         exit 5)
   | BaseAst.PrintStmt e ->
       let e, env = type_expr e env in

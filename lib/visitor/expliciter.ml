@@ -6,7 +6,7 @@ let enter env = VarSet.empty :: env
 let leave env =
   match env with
   | [] ->
-      Printf.eprintf "No scope to leave\n";
+      Printf.eprintf "failure: no scope to leave\n";
       exit 1
   | _ :: t -> t
 
@@ -19,7 +19,7 @@ let rec lookup env id =
 let push env id =
   match env with
   | [] ->
-      Printf.eprintf "No scope to push variable\n";
+      Printf.eprintf "failure: no scope to push variable\n";
       exit 1
   | h :: t -> VarSet.add id h :: t
 

@@ -17,6 +17,8 @@ rule lex = parse
 | "then" { THEN }
 | "else" { ELSE }
 | "end" { END }
+| "while" { WHILE }
+| "do" { DO }
 (* Operators *)
 | "<-" { ASSIGN }
 | "{" { LBRACE }

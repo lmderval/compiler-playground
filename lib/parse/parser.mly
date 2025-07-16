@@ -7,6 +7,8 @@
 %token THEN "then"
 %token ELSE "else"
 %token END "end"
+%token WHILE "while"
+%token DO "do"
 
 %token ASSIGN "<-"
 %token LBRACE "{"
@@ -53,6 +55,8 @@ stmt:
   { BaseAst.IfStmt (c, s, (BlockStmt [])) }
 | IF c = cond THEN s1 = stmt ELSE s2 = stmt END
   { BaseAst.IfStmt (c, s1, s2) }
+| WHILE c = cond DO s = stmt END
+  { BaseAst.WhileStmt (c, s) }
 | LBRACE ss = separated_list(COMMA, stmt) RBRACE
   { BaseAst.BlockStmt ss }
 

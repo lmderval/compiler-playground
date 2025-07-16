@@ -3,6 +3,7 @@ type stmt =
   | AssignStmt of string * expr
   | PrintStmt of expr
   | IfStmt of cond * stmt * stmt
+  | WhileStmt of cond * stmt
   | BlockStmt of stmt list
 
 and cond = expr * Operators.comparator * expr
